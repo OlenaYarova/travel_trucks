@@ -1,0 +1,7 @@
+.link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 0;
+  transition: opacity 150ms ease-in-out;
+}
