@@ -13,8 +13,8 @@ export default function Logo() {
       >
         <use href="/logo/logo.svg" />
       </svg> */}
-           <Image
-        src="/logo/logo.svg"
+      <Image
+        src="/logo/Logo.svg"
         alt="TravelTrucks logo"
         width={136}
         height={16}
