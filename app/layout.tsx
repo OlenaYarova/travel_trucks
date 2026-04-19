@@ -1,11 +1,40 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { Header } from "@/components/Header/Header";
-import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
+import type { Metadata } from 'next';
+import './globals.css';
+import { Header } from '@/components/Header/Header';
+import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 
 export const metadata: Metadata = {
-  title: "Travel Trucks",
-  description: "Find your perfect camper van for your next adventure with Travel Trucks.",
+  metadataBase: new URL('https://travel-trucks.vercel.app'),
+  title: {
+    default: 'TravelTrucks',
+    template: '%s',
+  },
+  description:
+    'Find your perfect camper van for your next adventure with TravelTrucks.',
+  openGraph: {
+    title: 'TravelTrucks',
+    description:
+      'Find your perfect camper van for your next adventure with TravelTrucks.',
+    url: 'https://travel-trucks.vercel.app',
+    siteName: 'TravelTrucks',
+    images: [
+      {
+        url: '/image/hero_2.webp',
+        width: 1440,
+        height: 696,
+        alt: 'TravelTrucks hero image',
+      },
+    ],
+    locale: 'uk_UA',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'TravelTrucks',
+    description:
+      'Find your perfect camper van for your next adventure with TravelTrucks.',
+    images: ['/image/hero_2.webp'],
+  },
 };
 
 export default function RootLayout({
@@ -14,13 +43,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="uk">
       <body>
         <TanStackProvider>
-        <Header />
+          <Header />
           <main>{children}</main>
         </TanStackProvider>
-     </body>
+      </body>
     </html>
   );
 }

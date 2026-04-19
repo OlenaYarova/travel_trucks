@@ -51,7 +51,7 @@ export function CamperGallery({ images, title }: CamperGalleryProps) {
         modules={[FreeMode, Navigation, Thumbs]}
         onSwiper={setThumbsSwiper}
         spaceBetween={16}
-        slidesPerView={Math.min(images.length, 3)}
+        slidesPerView={Math.min(images.length, 4)}
         freeMode
         watchSlidesProgress
         className={styles.thumbsSwiper}

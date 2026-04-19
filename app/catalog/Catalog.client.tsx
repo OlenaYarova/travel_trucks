@@ -6,8 +6,10 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 import { FiltersPanel } from '@/components/FiltersPanel/FiltersPanel';
 import { CamperList } from '@/components/CamperList/CamperList';
+import Loader from '@/components/Loader/Loader';
 import { LoadMoreButton } from '@/components/LoadMoreButton/LoadMoreButton';
 import { DEFAULT_CATALOG_PAGINATION } from '@/constans/pagination';
+import { normalizeLocation } from '@/helpers/cleanParams';
 import { getAllCampers, getFilters } from '@/lib/api/clientApi';
 import type { Camper, GetAllCampersParams } from '@/types/camper';
 import type { CatalogFilters, FilterOptions } from '@/types/filter';
@@ -41,7 +43,10 @@ const buildSearchParams = (filters: CatalogFilters) => {
 
   Object.entries(filters).forEach(([key, value]) => {
     if (value) {
-      searchParams.set(key, value);
+      searchParams.set(
+        key,
+        key === 'location' ? normalizeLocation(value) : value
+      );
     }
   });
 
@@ -63,6 +68,11 @@ const getPageItems = (page: unknown) => {
 
   return [];
 };
+
+const normalizeFilters = (filters: CatalogFilters): CatalogFilters => ({
+  ...filters,
+  location: filters.location ? normalizeLocation(filters.location) : '',
+});
 
 export default function CatalogClient({
   initialSearchParams,
@@ -93,10 +103,12 @@ export default function CatalogClient({
     queryFn: ({ pageParam }) =>
       getAllCampers({
         ...activeFilters,
-        perPage: initialSearchParams.perPage ?? DEFAULT_CATALOG_PAGINATION.perPage,
+        perPage:
+          initialSearchParams.perPage ?? DEFAULT_CATALOG_PAGINATION.perPage,
         page: Number(pageParam),
       }),
-    initialPageParam: initialSearchParams.page ?? DEFAULT_CATALOG_PAGINATION.page,
+    initialPageParam:
+      initialSearchParams.page ?? DEFAULT_CATALOG_PAGINATION.page,
     getNextPageParam: (lastPage) => {
       if (lastPage.page < lastPage.totalPages) {
         return lastPage.page + 1;
@@ -109,9 +121,11 @@ export default function CatalogClient({
   const campers = data?.pages.flatMap((page) => getPageItems(page)) ?? [];
 
   const handleApplyFilters = (nextFilters: CatalogFilters) => {
-    setActiveFilters(nextFilters);
+    const normalizedFilters = normalizeFilters(nextFilters);
 
-    const queryString = buildSearchParams(nextFilters);
+    setActiveFilters(normalizedFilters);
+
+    const queryString = buildSearchParams(normalizedFilters);
     router.replace(`${pathname}?${queryString}`, { scroll: false });
   };
 
@@ -133,7 +147,7 @@ export default function CatalogClient({
         </aside>
 
         <section className={styles.content}>
-          {isLoading && <p className={styles.state}>Loading campers...</p>}
+          {isLoading && <Loader label="Завантажуємо кемпери..." />}
           {isError && <p className={styles.state}>Failed to load campers.</p>}
 
           {!isLoading && !isError && (

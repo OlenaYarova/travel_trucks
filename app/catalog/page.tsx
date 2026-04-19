@@ -1,4 +1,5 @@
 
+import type { Metadata } from 'next';
 import {
   dehydrate,
   HydrationBoundary,
@@ -10,6 +11,25 @@ import { cleanParams } from '@/helpers/cleanParams';
 import { DEFAULT_CATALOG_PAGINATION } from '../../constans/pagination';
 import type { CatalogFilters } from '@/types/filter';
 
+export const metadata: Metadata = {
+  title: 'Catalog | TravelTrucks',
+  description:
+    'Browse the TravelTrucks camper catalog, filter vehicles, and load more offers for your next trip.',
+  openGraph: {
+    title: 'Catalog | TravelTrucks',
+    description:
+      'Browse the TravelTrucks camper catalog, filter vehicles, and load more offers for your next trip.',
+    url: 'https://travel-trucks.vercel.app/catalog',
+    images: [
+      {
+        url: '/image/hero_2.webp',
+        width: 1440,
+        height: 696,
+        alt: 'TravelTrucks catalog preview',
+      },
+    ],
+  },
+};
 
 type CatalogPageProps = {
   searchParams: Promise<
@@ -19,8 +39,6 @@ type CatalogPageProps = {
     }
   >;
 };
-
-
 
 export default async function CatalogPage({
   searchParams,
@@ -45,7 +63,6 @@ export default async function CatalogPage({
         engine: params.engine,
         transmission: params.transmission,
         page: Number(pageParam),
-
       }),
     initialPageParam: DEFAULT_CATALOG_PAGINATION.page,
   });

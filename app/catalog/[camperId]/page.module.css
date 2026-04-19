@@ -1,26 +1,35 @@
 .page {
-  padding: 28px 0 56px;
+  padding: 40px 0 60px;
 }
 
 .shell {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 420px;
-  gap: 14px;
-  align-items: start;
-  padding: 20px;
-  border-radius: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 0;
+  border-radius: 0;
   background-color: #ffffff;
-  box-shadow: 0 0 0 1px #f0f1f1 inset;
+  box-shadow: none;
+}
+
+.topRow {
+  display: flex;
+  gap: 24px;
+  align-items: stretch;
 }
 
 .topSection {
   min-width: 0;
+  flex: 0 0 638px;
 }
 
 .summaryCard {
-  display: grid;
-  gap: 20px;
-  padding: 8px 6px 0 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0;
+  flex: 1 1 auto;
+  align-self: stretch;
 }
 
 .topMeta {
@@ -31,7 +40,8 @@
 }
 
 .title {
-  font-size: 28px;
+  font-size: 24px;
+  font-weight: 600;
   line-height: 1.2;
   color: var(--main);
 }
@@ -39,10 +49,10 @@
 .inlineMeta {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 8px;
+  gap: 12px;
+  margin-top: 0;
   color: var(--main);
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .inlineMetaItem {
@@ -58,82 +68,97 @@
 }
 
 .metaIcon {
-  color: var(--button);
+  color: var(--main);
+  font-size: 18px;
 }
 
 .price {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--main);
+  white-space: nowrap;
 }
 
 .description {
   color: #475467;
-  font-size: 14px;
-  line-height: 1.43;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 .specCard {
-  padding: 18px 18px 20px;
-  border: 1px solid #f0f1f1;
-  border-radius: 24px;
+  padding: 24px;
+  border: 0;
+  border-radius: 16px;
   background-color: #f8f9f8;
+  flex: 1 1 auto;
 }
 
 .sectionTitle {
   margin-bottom: 16px;
-  font-size: 24px;
+  font-size: 18px;
+  font-weight: 600;
   color: var(--main);
 }
 
 .specList {
-  display: grid;
-  gap: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .specList div {
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #f0f1f1;
+  padding-bottom: 4px;
+  border-bottom: none;
 }
 
 .specList dt {
   color: var(--gray);
+  font-size: 16px;
 }
 
 .specList dd {
   color: var(--main);
-  font-weight: 600;
+  font-weight: 400;
+  font-size: 16px;
 }
 
 .featuresList {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 18px;
+  gap: 8px;
+  margin-bottom: 24px;
 }
 
 .featureItem {
-  padding: 8px 12px;
+  padding: 8px 16px;
   border-radius: 100px;
-  background-color: #ffffff;
+  background-color: #f2f4f7;
   color: var(--main);
   font-size: 12px;
   font-weight: 500;
 }
 
 .bottomSection {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 420px;
-  gap: 14px;
-  padding-top: 14px;
-  border-top: 1px solid #f0f1f1;
+  display: flex;
+  gap: 32px;
+  align-items: stretch;
+  width: 100%;
 }
 
 .reviewsPane,
 .bookingPane {
   min-width: 0;
+}
+
+.reviewsPane {
+  flex: 1 1 0;
+}
+
+.bookingPane {
+  flex: 1 1 0;
+  padding-top: 48px;
+  display: flex;
 }

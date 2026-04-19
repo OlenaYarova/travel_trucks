@@ -1,6 +1,5 @@
 .card {
-  display: grid;
-  grid-template-columns: 292px 1fr;
+  display: flex;
   gap: 18px;
   padding: 14px;
   border: 1px solid #eff2ef;
@@ -9,6 +8,7 @@
 }
 
 .imageWrap {
+  flex: 0 0 292px;
   position: relative;
   overflow: hidden;
   border-radius: 16px;
@@ -21,7 +21,9 @@
 }
 
 .content {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
   gap: 12px;
   padding: 8px 6px 8px 0;
 }
@@ -50,7 +52,7 @@
   flex-wrap: wrap;
   gap: 16px;
   color: var(--main);
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .metaItem {
@@ -60,7 +62,8 @@
 }
 
 .metaIcon {
-  color: var(--button);
+  color: var(--main);
+  font-size: 18px;
 }
 
 .description {
@@ -103,4 +106,9 @@
   color: var(--white);
   font-size: 12px;
   font-weight: 500;
+  transition: background-color 200ms ease;
+}
+
+.button:hover {
+  background-color: #6d7b75;
 }

@@ -3,7 +3,8 @@
 import { useState } from 'react';
 
 import type { CatalogFilters, FilterOptions } from '@/types/filter';
-
+import { CiMap } from "react-icons/ci";
+import { IoCloseOutline } from 'react-icons/io5';
 import styles from './FiltersPanel.module.css';
 
 type FiltersPanelProps = {
@@ -63,14 +64,17 @@ export function FiltersPanel({
         <label className={styles.label} htmlFor="location">
           Location
         </label>
-        <input
-          id="location"
-          className={styles.input}
-          type="text"
-          placeholder="Kyiv, Ukraine"
-          value={draftFilters.location ?? ''}
-          onChange={(event) => setField('location', event.target.value)}
-        />
+        <div className={styles.inputWrap}>
+          <CiMap size={18} className={styles.inputIcon} />
+          <input
+            id="location"
+            className={styles.input}
+            type="text"
+            placeholder="Ukraine, Kyiv"
+            value={draftFilters.location ?? ''}
+            onChange={(event) => setField('location', event.target.value)}
+          />
+        </div>
       </div>
 
       <p className={styles.filtersTitle}>Filters</p>
@@ -111,7 +115,8 @@ export function FiltersPanel({
             onReset();
           }}
         >
-          Reset
+          <IoCloseOutline size={18} color="var(--main)" />
+          Clear filters
         </button>
       </div>
     </form>

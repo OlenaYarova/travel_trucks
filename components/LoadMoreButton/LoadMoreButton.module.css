@@ -9,6 +9,12 @@
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #f0f3ef;
+  border-color: #839b8c;
 }
 
 .button:disabled {
