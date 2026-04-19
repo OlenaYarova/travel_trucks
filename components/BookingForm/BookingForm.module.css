@@ -1,0 +1,69 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 44px;
+  border: 1px solid #f0f1f1;
+  border-radius: 16px;
+  background-color: #ffffff;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--main);
+}
+
+.text {
+  margin-bottom: 24px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--gray);
+}
+
+.form {
+  display: flex;
+  gap: 14px;
+ flex-direction: column;
+}
+
+.input {
+  width: 100%;
+  height: 56px;
+  padding: 0 18px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background-color: #f7f7f7;
+  color: var(--main);
+  font-size: 16px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.button {
+  width: 100%;
+  height: 56px;
+  border: none;
+  border-radius: 200px;
+  background-color: #839b8c;
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 24px;
+}
+
+.button:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.successMessage {
+  margin-top: 16px;
+  color: #067647;
+}
+
+.errorMessage {
+  margin-top: 16px;
+  color: #b42318;
+}

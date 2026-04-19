@@ -9,13 +9,19 @@ import { CamperList } from '@/components/CamperList/CamperList';
 import { LoadMoreButton } from '@/components/LoadMoreButton/LoadMoreButton';
 import { DEFAULT_CATALOG_PAGINATION } from '@/constans/pagination';
 import { getAllCampers, getFilters } from '@/lib/api/clientApi';
-import type { GetAllCampersParams } from '@/types/camper';
+import type { Camper, GetAllCampersParams } from '@/types/camper';
 import type { CatalogFilters, FilterOptions } from '@/types/filter';
 
 import styles from './Catalog.module.css';
 
 type CatalogClientProps = {
   initialSearchParams: GetAllCampersParams;
+};
+
+const fallbackFilterOptions: FilterOptions = {
+  forms: ['alcove', 'panel_van', 'integrated', 'semi_integrated'],
+  transmissions: ['automatic', 'manual'],
+  engines: ['diesel', 'petrol', 'hybrid', 'electric'],
 };
 
 const extractFilters = ({
@@ -45,6 +51,19 @@ const buildSearchParams = (filters: CatalogFilters) => {
   return searchParams.toString();
 };
 
+const getPageItems = (page: unknown) => {
+  if (
+    page &&
+    typeof page === 'object' &&
+    'campers' in page &&
+    Array.isArray((page as { campers?: unknown }).campers)
+  ) {
+    return (page as { campers: Camper[] }).campers;
+  }
+
+  return [];
+};
+
 export default function CatalogClient({
   initialSearchParams,
 }: CatalogClientProps) {
@@ -59,6 +78,7 @@ export default function CatalogClient({
     queryKey: ['filters'],
     queryFn: getFilters,
     refetchOnMount: false,
+    retry: false,
   });
 
   const {
@@ -86,7 +106,7 @@ export default function CatalogClient({
     },
   });
 
-  const campers = data?.pages.flatMap((page) => page.campers) ?? [];
+  const campers = data?.pages.flatMap((page) => getPageItems(page)) ?? [];
 
   const handleApplyFilters = (nextFilters: CatalogFilters) => {
     setActiveFilters(nextFilters);
@@ -104,8 +124,9 @@ export default function CatalogClient({
       <div className={`container ${styles.layout}`}>
         <aside className={styles.sidebar}>
           <FiltersPanel
+            key={JSON.stringify(activeFilters)}
             value={activeFilters}
-            options={filterOptions}
+            options={filterOptions ?? fallbackFilterOptions}
             onApply={handleApplyFilters}
             onReset={handleResetFilters}
           />

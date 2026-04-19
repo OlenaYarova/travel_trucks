@@ -1,0 +1,48 @@
+.gallery {
+  display: grid;
+  gap: 16px;
+}
+
+.mainSwiper {
+  width: 100%;
+}
+
+.mainImageWrap {
+  position: relative;
+  overflow: hidden;
+  min-height: 420px;
+  border-radius: 24px;
+  background-color: var(--olive);
+}
+
+.thumbsSwiper {
+  width: 100%;
+}
+
+.thumbWrap {
+  position: relative;
+  overflow: hidden;
+  min-height: 136px;
+  border-radius: 20px;
+  background-color: var(--olive);
+  cursor: pointer;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.gallery :global(.swiper-button-next),
+.gallery :global(.swiper-button-prev) {
+  color: var(--white);
+}
+
+.gallery :global(.swiper-button-next::after),
+.gallery :global(.swiper-button-prev::after) {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.gallery :global(.swiper-slide-thumb-active) .thumbWrap {
+  outline: 3px solid var(--button);
+}

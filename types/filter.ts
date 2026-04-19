@@ -6,7 +6,7 @@ export type CatalogFilters = {
 };
 
 export type FilterOptions = {
-  locations: string[];
+  locations?: string[];
   forms: string[];
   transmissions: string[];
   engines: string[];

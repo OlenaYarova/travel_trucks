@@ -7,13 +7,13 @@ type CatalogSearchParams = CatalogFilters & {
 
 export const cleanParams = (params: Partial<CatalogSearchParams>) => {
   const cleanedEntries = Object.entries(params).flatMap(([key, value]) => {
-    const normalizedValue = Array.isArray(value) ? value[0] : value;
+    const rawValue = Array.isArray(value) ? value[0] : value;
 
-    if (typeof normalizedValue !== 'string') {
+    if (typeof rawValue !== 'string') {
       return [];
     }
 
-    const trimmedValue = normalizedValue.trim();
+    const trimmedValue = rawValue.trim();
 
     if (!trimmedValue) {
       return [];

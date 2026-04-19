@@ -1,26 +1,29 @@
 .card {
   display: grid;
   grid-template-columns: 292px 1fr;
-  gap: 24px;
-  padding: 24px;
-  border: 1px solid var(--gray-light);
+  gap: 18px;
+  padding: 14px;
+  border: 1px solid #eff2ef;
   border-radius: 24px;
-  background-color: var(--white);
+  background-color: #f8f9f8;
 }
 
 .imageWrap {
+  position: relative;
   overflow: hidden;
   border-radius: 16px;
   background-color: var(--olive);
+  min-height: 224px;
 }
 
 .image {
-  min-height: 320px;
+  object-fit: cover;
 }
 
 .content {
   display: grid;
-  gap: 16px;
+  gap: 12px;
+  padding: 8px 6px 8px 0;
 }
 
 .heading {
@@ -37,19 +40,37 @@
 }
 
 .price {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 600;
   color: var(--main);
 }
 
 .meta {
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
   color: var(--main);
+  font-size: 12px;
+}
+
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.metaIcon {
+  color: var(--button);
 }
 
 .description {
   color: var(--gray);
+  font-size: 14px;
+  line-height: 1.43;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .tags {
@@ -59,18 +80,27 @@
 }
 
 .tag {
-  padding: 12px 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
   border-radius: 100px;
-  background-color: var(--olive);
+  background-color: #ffffff;
   color: var(--main);
+  font-size: 12px;
   font-weight: 500;
+}
+
+.tagIcon {
+  color: var(--main);
 }
 
 .button {
   width: fit-content;
-  padding: 16px 40px;
+  padding: 12px 24px;
   border-radius: 200px;
-  background-color: var(--button);
+  background-color: #839b8c;
   color: var(--white);
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 500;
 }

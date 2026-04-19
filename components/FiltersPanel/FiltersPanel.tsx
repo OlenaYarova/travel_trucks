@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import type { CatalogFilters, FilterOptions } from '@/types/filter';
 
@@ -20,6 +20,19 @@ const defaultFilters: CatalogFilters = {
   transmission: '',
 };
 
+const optionLabels: Record<string, string> = {
+  alcove: 'Alcove',
+  panel_van: 'Panel Van',
+  integrated: 'Integrated',
+  semi_integrated: 'Semi Integrated',
+  automatic: 'Automatic',
+  manual: 'Manual',
+  diesel: 'Diesel',
+  petrol: 'Petrol',
+  hybrid: 'Hybrid',
+  electric: 'Electric',
+};
+
 export function FiltersPanel({
   value,
   options,
@@ -30,13 +43,6 @@ export function FiltersPanel({
     ...defaultFilters,
     ...value,
   });
-
-  useEffect(() => {
-    setDraftFilters({
-      ...defaultFilters,
-      ...value,
-    });
-  }, [value]);
 
   const setField = (field: keyof CatalogFilters, nextValue: string) => {
     setDraftFilters((current) => ({
@@ -61,11 +67,13 @@ export function FiltersPanel({
           id="location"
           className={styles.input}
           type="text"
-          placeholder="City"
+          placeholder="Kyiv, Ukraine"
           value={draftFilters.location ?? ''}
           onChange={(event) => setField('location', event.target.value)}
         />
       </div>
+
+      <p className={styles.filtersTitle}>Filters</p>
 
       <FilterGroup
         title="Vehicle type"
@@ -144,7 +152,7 @@ function FilterGroup({
               checked={value === option}
               onChange={() => onChange(option)}
             />
-            <span className={styles.optionLabel}>{option}</span>
+            <span className={styles.optionLabel}>{optionLabels[option] ?? option}</span>
           </label>
         ))}
       </div>

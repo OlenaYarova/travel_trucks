@@ -1,3 +1,20 @@
+export type CamperImage = {
+    id?: string;
+    camperId?: string;
+    thumb: string;
+    original: string;
+    order?: number;
+};
+
+export type Review = {
+    id?: string;
+    camperId?: string;
+    reviewer_name: string;
+    reviewer_rating: number;
+    comment: string;
+    createdAt?: string;
+};
+
 export interface Camper {
     id: string;
     name: string;
@@ -10,10 +27,19 @@ export interface Camper {
     height: string;
     length: string;
     tank: string;
-    gallery: string[];
+    gallery: CamperImage[];
     transmission: string;
     engine: string;
-    form: string;
+    form: 'alcove' | 'panel_van' | 'integrated' | 'semi_integrated' | string;
+    coverImage?: string;
+    amenities: string[];
+    totalReviews?: number;
+    createdAt?: string;
+    updatedAt?: string;
+}
+
+export interface CamperDetails extends Camper {
+    reviews?: Review[];
 }
 
 export type GetAllCampersParams = {
@@ -33,11 +59,7 @@ export type GetAllCampersResponse = {
     campers: Camper[];
 };
 
-export type Review = {
-    id: string;
-    camperId: string;
-    reviewer_name: string;
-    reviewer_rating: number;
-    comment: string;
-    createdAt: string;
+export type BookingPayload = {
+    name: string;
+    email: string;
 };

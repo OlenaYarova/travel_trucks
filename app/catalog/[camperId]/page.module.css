@@ -1,0 +1,139 @@
+.page {
+  padding: 28px 0 56px;
+}
+
+.shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  gap: 14px;
+  align-items: start;
+  padding: 20px;
+  border-radius: 28px;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 1px #f0f1f1 inset;
+}
+
+.topSection {
+  min-width: 0;
+}
+
+.summaryCard {
+  display: grid;
+  gap: 20px;
+  padding: 8px 6px 0 4px;
+}
+
+.topMeta {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: start;
+}
+
+.title {
+  font-size: 28px;
+  line-height: 1.2;
+  color: var(--main);
+}
+
+.inlineMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 8px;
+  color: var(--main);
+  font-size: 13px;
+}
+
+.inlineMetaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ratingWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.metaIcon {
+  color: var(--button);
+}
+
+.price {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--main);
+}
+
+.description {
+  color: #475467;
+  font-size: 14px;
+  line-height: 1.43;
+}
+
+.specCard {
+  padding: 18px 18px 20px;
+  border: 1px solid #f0f1f1;
+  border-radius: 24px;
+  background-color: #f8f9f8;
+}
+
+.sectionTitle {
+  margin-bottom: 16px;
+  font-size: 24px;
+  color: var(--main);
+}
+
+.specList {
+  display: grid;
+  gap: 14px;
+}
+
+.specList div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f0f1f1;
+}
+
+.specList dt {
+  color: var(--gray);
+}
+
+.specList dd {
+  color: var(--main);
+  font-weight: 600;
+}
+
+.featuresList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.featureItem {
+  padding: 8px 12px;
+  border-radius: 100px;
+  background-color: #ffffff;
+  color: var(--main);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.bottomSection {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  gap: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #f0f1f1;
+}
+
+.reviewsPane,
+.bookingPane {
+  min-width: 0;
+}

@@ -1,12 +1,13 @@
 .button {
-  min-width: 166px;
-  height: 56px;
-  padding: 0 32px;
-  border: 1px solid var(--gray-light);
+  min-width: 126px;
+  height: 40px;
+  padding: 0 20px;
+  border: 1px solid #d9ddd7;
   border-radius: 200px;
-  background-color: transparent;
+  background-color: #ffffff;
   color: var(--main);
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 500;
   cursor: pointer;
 }
 
