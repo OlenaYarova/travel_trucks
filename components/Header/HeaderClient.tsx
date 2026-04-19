@@ -11,17 +11,18 @@ export default function HeaderClient() {
 
   return (
     <header className={styles.header}>
-      <div className={styles.container}>
-        
+      <div className = 'container'>
         <nav className={styles.nav}>
           <Logo />
+      <ul className={styles.list}>
+          <li className={styles.item}>
           <Link
             href="/"
             className={clsx(styles.link, pathname === '/' && styles.active)}
           >
             Home
-          </Link>
-
+          </Link></li>
+<li className={styles.item}>
           <Link
             href="/catalog"
             className={clsx(
@@ -30,7 +31,7 @@ export default function HeaderClient() {
             )}
           >
             Catalog
-          </Link>
+          </Link></li></ul>
         </nav>
       </div>
     </header>

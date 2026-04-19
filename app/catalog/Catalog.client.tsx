@@ -1,0 +1,137 @@
+'use client';
+
+import { useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+
+import { FiltersPanel } from '@/components/FiltersPanel/FiltersPanel';
+import { CamperList } from '@/components/CamperList/CamperList';
+import { LoadMoreButton } from '@/components/LoadMoreButton/LoadMoreButton';
+import { DEFAULT_CATALOG_PAGINATION } from '@/constans/pagination';
+import { getAllCampers, getFilters } from '@/lib/api/clientApi';
+import type { GetAllCampersParams } from '@/types/camper';
+import type { CatalogFilters, FilterOptions } from '@/types/filter';
+
+import styles from './Catalog.module.css';
+
+type CatalogClientProps = {
+  initialSearchParams: GetAllCampersParams;
+};
+
+const extractFilters = ({
+  location,
+  form,
+  transmission,
+  engine,
+}: GetAllCampersParams): CatalogFilters => ({
+  location,
+  form,
+  transmission,
+  engine,
+});
+
+const buildSearchParams = (filters: CatalogFilters) => {
+  const searchParams = new URLSearchParams();
+
+  Object.entries(filters).forEach(([key, value]) => {
+    if (value) {
+      searchParams.set(key, value);
+    }
+  });
+
+  searchParams.set('page', String(DEFAULT_CATALOG_PAGINATION.page));
+  searchParams.set('perPage', String(DEFAULT_CATALOG_PAGINATION.perPage));
+
+  return searchParams.toString();
+};
+
+export default function CatalogClient({
+  initialSearchParams,
+}: CatalogClientProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const [activeFilters, setActiveFilters] = useState<CatalogFilters>(
+    extractFilters(initialSearchParams)
+  );
+
+  const { data: filterOptions } = useQuery<FilterOptions>({
+    queryKey: ['filters'],
+    queryFn: getFilters,
+    refetchOnMount: false,
+  });
+
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isLoading,
+    isFetchingNextPage,
+    isError,
+  } = useInfiniteQuery({
+    queryKey: ['campers', activeFilters],
+    queryFn: ({ pageParam }) =>
+      getAllCampers({
+        ...activeFilters,
+        perPage: initialSearchParams.perPage ?? DEFAULT_CATALOG_PAGINATION.perPage,
+        page: Number(pageParam),
+      }),
+    initialPageParam: initialSearchParams.page ?? DEFAULT_CATALOG_PAGINATION.page,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.page < lastPage.totalPages) {
+        return lastPage.page + 1;
+      }
+
+      return undefined;
+    },
+  });
+
+  const campers = data?.pages.flatMap((page) => page.campers) ?? [];
+
+  const handleApplyFilters = (nextFilters: CatalogFilters) => {
+    setActiveFilters(nextFilters);
+
+    const queryString = buildSearchParams(nextFilters);
+    router.replace(`${pathname}?${queryString}`, { scroll: false });
+  };
+
+  const handleResetFilters = () => {
+    handleApplyFilters({});
+  };
+
+  return (
+    <main className={styles.main}>
+      <div className={`container ${styles.layout}`}>
+        <aside className={styles.sidebar}>
+          <FiltersPanel
+            value={activeFilters}
+            options={filterOptions}
+            onApply={handleApplyFilters}
+            onReset={handleResetFilters}
+          />
+        </aside>
+
+        <section className={styles.content}>
+          {isLoading && <p className={styles.state}>Loading campers...</p>}
+          {isError && <p className={styles.state}>Failed to load campers.</p>}
+
+          {!isLoading && !isError && (
+            <>
+              <CamperList campers={campers} />
+
+              {hasNextPage && (
+                <div className={styles.loadMoreWrap}>
+                  <LoadMoreButton
+                    onClick={() => fetchNextPage()}
+                    disabled={isFetchingNextPage}
+                    loading={isFetchingNextPage}
+                  />
+                </div>
+              )}
+            </>
+          )}
+        </section>
+      </div>
+    </main>
+  );
+}

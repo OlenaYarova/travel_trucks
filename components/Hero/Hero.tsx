@@ -3,7 +3,7 @@ import styles from "./Hero.module.css";
 
 const Hero=() => {
     return (
-        <div className={styles.wrapper}>
+        <div className={`container ${styles.wrapper}`}>
             <h1 className={styles.title}>Campers of your dreams</h1>
             <p className={styles.text}>You can find everything you want in our catalog</p>
             <Link href="/catalog" className={styles.link}>

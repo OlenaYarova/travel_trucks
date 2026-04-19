@@ -1,12 +1,13 @@
-// import styles from "./page.module.css";
+type CamperDetailsPageProps = {
+  params: Promise<{
+    camperId: string;
+  }>;
+};
 
-const CamperDetailsPage = () => {   
-  return (
-    <div>
-      <h1>Camper Details</h1>
-      <p>Welcome to the camper details page!</p>
-    </div>
-  );
-}       
+export default async function CamperDetailsPage({
+  params,
+}: CamperDetailsPageProps) {
+  const { camperId } = await params;
 
-export default CamperDetailsPage;
+  return <main>Camper details page for {camperId}</main>;
+}

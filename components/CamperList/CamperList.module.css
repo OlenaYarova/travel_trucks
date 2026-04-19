@@ -1,0 +1,9 @@
+.list {
+  display: grid;
+  gap: 32px;
+}
+
+.empty {
+  padding: 56px 0;
+  color: var(--gray);
+}

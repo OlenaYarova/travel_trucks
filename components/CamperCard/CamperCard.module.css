@@ -1,0 +1,76 @@
+.card {
+  display: grid;
+  grid-template-columns: 292px 1fr;
+  gap: 24px;
+  padding: 24px;
+  border: 1px solid var(--gray-light);
+  border-radius: 24px;
+  background-color: var(--white);
+}
+
+.imageWrap {
+  overflow: hidden;
+  border-radius: 16px;
+  background-color: var(--olive);
+}
+
+.image {
+  min-height: 320px;
+}
+
+.content {
+  display: grid;
+  gap: 16px;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: start;
+}
+
+.title {
+  font-size: 24px;
+  line-height: 1.33;
+  color: var(--main);
+}
+
+.price {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--main);
+}
+
+.meta {
+  display: flex;
+  gap: 16px;
+  color: var(--main);
+}
+
+.description {
+  color: var(--gray);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tag {
+  padding: 12px 18px;
+  border-radius: 100px;
+  background-color: var(--olive);
+  color: var(--main);
+  font-weight: 500;
+}
+
+.button {
+  width: fit-content;
+  padding: 16px 40px;
+  border-radius: 200px;
+  background-color: var(--button);
+  color: var(--white);
+  font-weight: 600;
+}
