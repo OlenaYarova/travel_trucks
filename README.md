@@ -1,19 +1,19 @@
 # TravelTrucks
 
-`TravelTrucks` — це фронтенд-застосунок для сервісу оренди кемперів. Проєкт реалізований на `Next.js` та `TypeScript` і дозволяє переглядати каталог кемперів, фільтрувати їх, відкривати сторінку деталей і переглядати відгуки.
+`TravelTrucks` is a frontend web application for a camper rental service. The project is built with `Next.js` and `TypeScript` and allows users to browse the camper catalog, apply filters, open a camper details page, and read reviews.
 
-## Основні функції
+## Main Features
 
-- головна сторінка з банером і переходом до каталогу
-- каталог кемперів із фільтрацією за локацією, типом кузова, двигуном і трансмісією
-- пагінація у форматі `Load more`
-- сторінка деталей окремого кемпера
-- галерея зображень на `Swiper`
-- блок відгуків із рейтингом
-- форма бронювання
-- наповнений `head` для основних сторінок
+- home page with a hero banner and a link to the catalog
+- camper catalog with filtering by location, vehicle type, engine, and transmission
+- pagination in `Load more` format
+- camper details page
+- image gallery built with `Swiper`
+- reviews section with rating display
+- booking form UI
+- filled page `head` metadata for the main routes
 
-## Технології
+## Technologies
 
 - `Next.js`
 - `TypeScript`
@@ -23,64 +23,59 @@
 - `React Icons`
 - `CSS Modules`
 
-## Сторінки
+## Pages
 
-- `/` — головна сторінка
-- `/catalog` — каталог кемперів
-- `/catalog/[camperId]` — сторінка деталей кемпера
+- `/` — home page
+- `/catalog` — camper catalog
+- `/catalog/[camperId]` — camper details page
 
-## Встановлення
+## Installation
 
-1. Клонуй репозиторій:
+1. Clone the repository:
 
 ```bash
-git clone <посилання-на-репозиторій>
+git clone <repository-link>
 ```
 
-2. Перейди в папку проєкту:
+2. Go to the project folder:
 
 ```bash
 cd travel_trucks
 ```
 
-3. Встанови залежності:
+3. Install dependencies:
 
 ```bash
 npm install
 ```
 
-4. Створи файл `.env` і додай змінну:
+4. Create a `.env` file and add the following variable:
 
 ```env
 NEXT_PUBLIC_API_URL=https://campers-api.goit.study
 ```
 
-## Використання
+## Usage
 
-Для локального запуску виконай:
+Run the project locally:
 
 ```bash
 npm run dev
 ```
 
-Після цього відкрий у браузері:
+Then open:
 
 ```bash
 http://localhost:3000
 ```
 
-## Доступні команди
 
-```bash
-npm run dev
-npm run build
+## Notes
 
+- the application uses the `https://campers-api.goit.study` backend
+- reviews are loaded from the real endpoint `GET /campers/:camperId/reviews`
+- the current backend does not provide a working booking submission endpoint, so the booking form is implemented on the UI side with graceful handling of this limitation
 
-## Важливі примітки
-
-- застосунок підключений до `https://campers-api.goit.study`
-
-
-## Автор
+## Author
 
 Olena Yarova
