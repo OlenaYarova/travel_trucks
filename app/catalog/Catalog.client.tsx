@@ -20,12 +20,6 @@ type CatalogClientProps = {
   initialSearchParams: GetAllCampersParams;
 };
 
-const fallbackFilterOptions: FilterOptions = {
-  forms: ['alcove', 'panel_van', 'integrated', 'semi_integrated'],
-  transmissions: ['automatic', 'manual'],
-  engines: ['diesel', 'petrol', 'hybrid', 'electric'],
-};
-
 const extractFilters = ({
   location,
   form,
@@ -84,7 +78,11 @@ export default function CatalogClient({
     extractFilters(initialSearchParams)
   );
 
-  const { data: filterOptions } = useQuery<FilterOptions>({
+  const {
+    data: filterOptions,
+    isLoading: isFiltersLoading,
+    isError: isFiltersError,
+  } = useQuery<FilterOptions>({
     queryKey: ['filters'],
     queryFn: getFilters,
     refetchOnMount: false,
@@ -96,6 +94,7 @@ export default function CatalogClient({
     fetchNextPage,
     hasNextPage,
     isLoading,
+    isFetching,
     isFetchingNextPage,
     isError,
   } = useInfiniteQuery({
@@ -119,6 +118,7 @@ export default function CatalogClient({
   });
 
   const campers = data?.pages.flatMap((page) => getPageItems(page)) ?? [];
+  const isRefreshingList = isFetching && !isLoading && !isFetchingNextPage;
 
   const handleApplyFilters = (nextFilters: CatalogFilters) => {
     const normalizedFilters = normalizeFilters(nextFilters);
@@ -137,18 +137,29 @@ export default function CatalogClient({
     <main className={styles.main}>
       <div className={`container ${styles.layout}`}>
         <aside className={styles.sidebar}>
-          <FiltersPanel
-            key={JSON.stringify(activeFilters)}
-            value={activeFilters}
-            options={filterOptions ?? fallbackFilterOptions}
-            onApply={handleApplyFilters}
-            onReset={handleResetFilters}
-          />
+          {isFiltersLoading && <Loader label="Loading filters..." />}
+          {isFiltersError && (
+            <p className={styles.state}>Failed to load filters.</p>
+          )}
+          {filterOptions && (
+            <FiltersPanel
+              key={JSON.stringify(activeFilters)}
+              value={activeFilters}
+              options={filterOptions}
+              onApply={handleApplyFilters}
+              onReset={handleResetFilters}
+            />
+          )}
         </aside>
 
-        <section className={styles.content}>
-          {isLoading && <Loader label="Завантажуємо кемпери..." />}
+        <section className={styles.content} aria-busy={isLoading || isRefreshingList}>
+          {isLoading && <Loader label="Loading campers..." />}
           {isError && <p className={styles.state}>Failed to load campers.</p>}
+          {isRefreshingList && (
+            <div className={styles.refreshState}>
+              <Loader label="Updating catalog..." />
+            </div>
+          )}
 
           {!isLoading && !isError && (
             <>

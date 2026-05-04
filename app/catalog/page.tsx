@@ -1,4 +1,3 @@
-
 import type { Metadata } from 'next';
 import {
   dehydrate,
@@ -12,9 +11,12 @@ import { DEFAULT_CATALOG_PAGINATION } from '../../constans/pagination';
 import type { CatalogFilters } from '@/types/filter';
 
 export const metadata: Metadata = {
-  title: 'Catalog | TravelTrucks',
+  title: 'Catalog',
   description:
     'Browse the TravelTrucks camper catalog, filter vehicles, and load more offers for your next trip.',
+  alternates: {
+    canonical: '/catalog',
+  },
   openGraph: {
     title: 'Catalog | TravelTrucks',
     description:

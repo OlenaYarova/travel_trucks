@@ -2,9 +2,12 @@ import type { Metadata } from 'next';
 import Hero from '@/components/Hero/Hero';
 
 export const metadata: Metadata = {
-  title: 'Home | TravelTrucks',
+  title: 'Home',
   description:
     'Find your perfect campervan for your next road trip with TravelTrucks.',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'Home | TravelTrucks',
     description:

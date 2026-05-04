@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { createBooking } from '@/lib/api/clientApi';
 import type { BookingPayload } from '@/types/camper';
@@ -19,10 +19,26 @@ const initialState: BookingPayload = {
 export function BookingForm({ camperName }: BookingFormProps) {
   const [formState, setFormState] = useState<BookingPayload>(initialState);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [toast, setToast] = useState<{
+    type: 'success' | 'error';
+    message: string;
+  } | null>(null);
   const [feedback, setFeedback] = useState<{
     type: 'success' | 'error';
     message: string;
   } | null>(null);
+
+  useEffect(() => {
+    if (!toast) {
+      return undefined;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setToast(null);
+    }, 4000);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [toast]);
 
   const updateField = (field: keyof BookingPayload, value: string) => {
     setFormState((current) => ({
@@ -38,9 +54,15 @@ export function BookingForm({ camperName }: BookingFormProps) {
 
     try {
       await createBooking(formState);
+      const successMessage = `Booking request for ${camperName} was sent successfully.`;
+
       setFeedback({
         type: 'success',
-        message: `Booking request for ${camperName} was sent successfully.`,
+        message: successMessage,
+      });
+      setToast({
+        type: 'success',
+        message: successMessage,
       });
       setFormState(initialState);
     } catch (error) {
@@ -49,12 +71,18 @@ export function BookingForm({ camperName }: BookingFormProps) {
           ? error.message
           : 'Failed to send booking request. Please try again.';
 
+      const errorMessage =
+        message.includes('404') || message.includes('Cannot POST /bookings')
+          ? 'The current backend does not provide a booking endpoint yet. The form UI is ready, but submission is unavailable in this API version.'
+          : 'Failed to send booking request. Please try again.';
+
       setFeedback({
         type: 'error',
-        message:
-          message.includes('404') || message.includes('Cannot POST /bookings')
-            ? 'The current backend does not provide a booking endpoint yet. The form UI is ready, but submission is unavailable in this API version.'
-            : 'Failed to send booking request. Please try again.',
+        message: errorMessage,
+      });
+      setToast({
+        type: 'error',
+        message: errorMessage,
       });
     } finally {
       setIsSubmitting(false);
@@ -63,6 +91,21 @@ export function BookingForm({ camperName }: BookingFormProps) {
 
   return (
     <section className={styles.card}>
+      {toast && (
+        <div
+          className={`${styles.toast} ${
+            toast.type === 'success' ? styles.toastSuccess : styles.toastError
+          }`}
+          role="status"
+          aria-live="polite"
+        >
+          <span className={styles.toastTitle}>
+            {toast.type === 'success' ? 'Success' : 'Error'}
+          </span>
+          <span>{toast.message}</span>
+        </div>
+      )}
+
       <h2 className={styles.title}>Book your campervan now</h2>
       <p className={styles.text}>
         Stay connected. We are always ready to help you with your trip planning.

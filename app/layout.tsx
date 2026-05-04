@@ -1,16 +1,50 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { Header } from '@/components/Header/Header';
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#ffffff',
+  colorScheme: 'light',
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://travel-trucks.vercel.app'),
+  applicationName: 'TravelTrucks',
   title: {
     default: 'TravelTrucks',
-    template: '%s',
+    template: '%s | TravelTrucks',
   },
   description:
     'Find your perfect camper van for your next adventure with TravelTrucks.',
+  keywords: [
+    'camper rental',
+    'campervan booking',
+    'road trip',
+    'travel trucks',
+    'RV rental',
+  ],
+  alternates: {
+    canonical: '/',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
+  },
+  manifest: '/manifest.webmanifest',
+  category: 'travel',
+  formatDetection: {
+    address: false,
+    email: false,
+    telephone: false,
+  },
   openGraph: {
     title: 'TravelTrucks',
     description:

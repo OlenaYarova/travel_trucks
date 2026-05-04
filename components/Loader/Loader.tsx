@@ -4,9 +4,7 @@ type LoaderProps = {
   label?: string;
 };
 
-export default function Loader({
-  label = 'Завантаження...',
-}: LoaderProps) {
+export default function Loader({ label = 'Loading...' }: LoaderProps) {
   return (
     <div className={styles.wrapper} role="status" aria-live="polite">
       <span className={styles.spinner} aria-hidden="true" />

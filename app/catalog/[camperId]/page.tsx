@@ -22,8 +22,11 @@ export async function generateMetadata({
 
   if (!camper) {
     return {
-      title: 'Camper Details | TravelTrucks',
+      title: 'Camper Details',
       description: 'View camper details, amenities, reviews, and booking options.',
+      alternates: {
+        canonical: `/catalog/${camperId}`,
+      },
       openGraph: {
         title: 'Camper Details | TravelTrucks',
         description: 'View camper details, amenities, reviews, and booking options.',
@@ -33,8 +36,11 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${camper.name} | TravelTrucks`,
+    title: camper.name,
     description: camper.description,
+    alternates: {
+      canonical: `/catalog/${camperId}`,
+    },
     openGraph: {
       title: `${camper.name} | TravelTrucks`,
       description: camper.description,
